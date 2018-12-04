@@ -1,0 +1,9 @@
+.flexContainer {
+  padding-top: 150px;
+}
+.footer {
+  text-align: center;
+}
+.item {
+  flex: 0 0 50%;
+}

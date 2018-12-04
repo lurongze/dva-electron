@@ -1,0 +1,13 @@
+.barColor {
+  color: white;
+}
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.body {
+  //padding-top: 50px;
+  height: 100%;
+}

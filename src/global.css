@@ -1,0 +1,15 @@
+
+html, body, #root {
+  height: 100%;
+  background-color: #e5e5e5;
+}
+
+body {
+  margin: 0;
+}
+
+.page {
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling : touch;
+}
