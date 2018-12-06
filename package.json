@@ -10,7 +10,10 @@
   },
   "scripts": {
     "package-win": "cross-env NODE_ENV=production yarn build && electron-builder build --win --x64",
-    "dev": "concurrently \"yarn start\" \"yarn electron-start\"",
+    "dev:electron": "concurrently \"yarn env-to-electron\" \"yarn start\" \"yarn electron-start\"",
+    "dev": "concurrently \"yarn env-to-h5\" \"yarn start\"",
+    "env-to-electron": "cross-env RUN_ENV=electron",
+    "env-to-h5": "cross-env RUN_ENV=h5",
     "electron-start": "cross-env NODE_ENV=development electron .",
     "start": "umi dev",
     "build": "umi build",

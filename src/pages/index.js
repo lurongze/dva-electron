@@ -4,13 +4,28 @@ import { Button, Icon } from 'antd-mobile';
 import styles from './index.css';
 import { webWork } from '@/utils/index';
 
-const electron = window.require('electron');
+let electron = '';
+if (process.RUN_ENV === 'electron') {
+  electron = window.require('electron');
+}
+
+function debounce(fn, delay = 500) {
+  let handle;
+  return function (e) {
+    // 取消之前的延时调用
+    clearTimeout(handle);
+    handle = setTimeout(() => {
+      fn(e);
+    }, delay);
+  }
+}
 
 function Index({ dispatch, global, loading }) {
 
   const list = global.list || [] ;
 
   const scroll = (event) => {
+
     const clientHeight = event.target.clientHeight;
     const scrollHeight = event.target.scrollHeight;
     const scrollTop = event.target.scrollTop;
@@ -24,17 +39,20 @@ function Index({ dispatch, global, loading }) {
   };
 
   const clickItem = () => {
-    // webWork.postMessage('eeeee');
     console.log('process.env', process.env);
   };
 
   const clickTitle = () => {
     console.log('23132');
-    electron.ipcRenderer.send('flashTray');
+
+    if (electron) {
+      electron.ipcRenderer.send('flashTray');
+    }
+
   };
 
   return (
-    <div className='page' onScroll={scroll}>
+    <div className='page' onScroll={debounce(scroll)}>
       <div className={styles.flexContainer}>
         { list && list.map((item)=>{
           return (
