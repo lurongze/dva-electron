@@ -1,31 +1,14 @@
 import { connect } from 'dva';
 import Link from 'umi/link';
-import { Button, Icon } from 'antd-mobile';
+import { Icon } from 'antd-mobile';
 import styles from './index.css';
-import { webWork } from '@/utils/index';
-
-let electron = '';
-if (process.RUN_ENV === 'electron') {
-  electron = window.require('electron');
-}
-
-function debounce(fn, delay = 500) {
-  let handle;
-  return function (e) {
-    // 取消之前的延时调用
-    clearTimeout(handle);
-    handle = setTimeout(() => {
-      fn(e);
-    }, delay);
-  }
-}
+import { helper } from '@/utils/index';
 
 function Index({ dispatch, global, loading }) {
 
   const list = global.list || [] ;
 
   const scroll = (event) => {
-
     const clientHeight = event.target.clientHeight;
     const scrollHeight = event.target.scrollHeight;
     const scrollTop = event.target.scrollTop;
@@ -43,16 +26,10 @@ function Index({ dispatch, global, loading }) {
   };
 
   const clickTitle = () => {
-    console.log('23132');
-
-    if (electron) {
-      electron.ipcRenderer.send('flashTray');
-    }
-
   };
 
   return (
-    <div className='page' onScroll={debounce(scroll)}>
+    <div className='page' onScroll={helper.debounce(scroll)}>
       <div className={styles.flexContainer}>
         { list && list.map((item)=>{
           return (
